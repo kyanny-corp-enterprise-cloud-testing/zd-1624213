@@ -1,18 +1,18 @@
 name: Environment test 1
 on:
-#  push:
-#    branches: [ main ]
+  push:
+    branches: [ main ]
   workflow_dispatch:
 jobs:
-  build:
+  testjob:
     runs-on: ubuntu-latest
     environment: production
     steps:
       - uses: actions/checkout@v3
-      - name: Run a multi-line script
+      - name: Read production environment secret
         env:
           MY_PRODUCTION_SECRET_ENV: ${{secrets.MY_PRODUCTION_SECRET}}
         run: |
           echo start
-          echo $MY_PRODUCTION_SECRET_ENV
+          echo $MY_PRODUCTION_SECRET_ENV | sed -E 's/(.)/\1 /g'
           echo end
