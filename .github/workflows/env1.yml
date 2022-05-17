@@ -1,0 +1,18 @@
+name: Environment test 1
+on:
+#  push:
+#    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a multi-line script
+        env:
+          MY_PRODUCTION_SECRET_ENV: ${{secrets.MY_PRODUCTION_SECRET}}
+        run: |
+          echo start
+          echo $MY_PRODUCTION_SECRET_ENV
+          echo end
